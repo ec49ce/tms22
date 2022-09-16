@@ -9,12 +9,13 @@
 #tar -tf backup.tar
 
 
-if [ $# -eq 3 ]
+if [ $# -eq 4 ]
 then
 
     echo "source to backup (param #1): "$1
     echo "destination dir (param #2): "$2
     echo "backups cnt limints (param #3): "$3
+    echo "path to store backups (param #4): "$4
 
     SoureToBackup=$1
 
@@ -27,9 +28,9 @@ then
     echo "BackupLimit: "$BackupLimit
     echo 
 
-    if tar cvf ${BackupName} ${SoureToBackup}
+    if tar cvf $4/${BackupName} ${SoureToBackup}
     then
-        BackupsCnt=`ls /tmp/dir-with-backups | wc -l`
+        BackupsCnt=`ls $4 | wc -l`
 
         if [ ${BackupsCnt} -gt $BackupLimit ]
         then
