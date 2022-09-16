@@ -10,7 +10,7 @@
 # generate random number from 1 to 10
 #####################################
 function getRandomNumber() {
- let rnd=($RANDOM % 10 + 1)
+ let rnd=($RANDOM % 9 + 1)
  echo $rnd
 }
 
@@ -24,7 +24,7 @@ function genFiles(){
 
         for (( i=1; i<=$flsCnt; i++))
                 do
-                echo -n > $1"/fileName"$i
+                echo -n > $1"/fileName"$2-$i
                 done
 }
 
@@ -33,10 +33,10 @@ function genFiles(){
 ################
 function genDirs
     {
-	if [[ ! -d $1/myDir$2 ]]
+	if [[ ! -d $1/myDir$3-$2 ]]
 	then
-        mkdir $1/myDir$2
-	#genFiles $1/myDir$2
+        mkdir $1/myDir$3-$2
+	genFiles $1/myDir$3-$2 $3
 	fi
 }
 
@@ -72,7 +72,7 @@ while [[ $CurDepth -le MaxDepth ]]
 
 	        		for (( d=1; d<=$dirCnt; d++))
         	        		do
-                				genDirs $dir $d
+                				genDirs $dir $d $CurDepth
                 			done
 
 			done
@@ -84,9 +84,9 @@ while [[ $CurDepth -le MaxDepth ]]
 #
 # fill Tree with files
 #
-find ${ParentDir}"/" -type d -print0 | while read -d $'\0' dir
-	do
-
-         genFiles $dir
-
-        done
+#find ${ParentDir}"/" -type d -print0 | while read -d $'\0' dir
+#	do
+#
+#         genFiles $dir
+#
+#        done
