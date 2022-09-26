@@ -15,7 +15,6 @@ function getRandomNumber() {
 }
 
 
-<<<<<<< HEAD
 ##################
 # gen files in dir
 ##################
@@ -55,45 +54,6 @@ ParentDir=$1
 if  [ ! -d ${ParentDir} ]
 then
     mkdir -p ${ParentDir}
-=======
-if [ $# -eq 4 ]
-then
-
-    echo "source to backup (param #1): "$1
-    echo "destination dir (param #2): "$2
-    echo "backups cnt limints (param #3): "$3
-    echo "path to store backups (param #4): "$4
-
-    SoureToBackup=$1
-
-    BackupName=$2/"backup_data_"`date +%Y%m%d_%H%M%S_%3N`".tar"
-
-    BackupLimit=$3
-
-    echo "SoureToBackup: "$SoureToBackup
-    echo "BackupName: "$BackupName
-    echo "BackupLimit: "$BackupLimit
-    echo 
-
-    if tar cvf $4/${BackupName} ${SoureToBackup}
-    then
-        BackupsCnt=`ls $4 | wc -l`
-
-        if [ ${BackupsCnt} -gt $BackupLimit ]
-        then
-            FileNameToBeRemove=`ls -1 | head -1`
-            rm ${FileNameToBeRemove}
-        fi
-
-        exit 0
-
-    else
-
-        exit 255
-
-    fi
-
->>>>>>> 717ecc1e8aa84dc5a0cb743e740b183c4804dcca
 else
     rm -r ${ParentDir}
     mkdir -p ${ParentDir}
