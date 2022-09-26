@@ -10,38 +10,34 @@
 # generate random number from 1 to 10
 #####################################
 function getRandomNumber() {
- let rnd=($RANDOM % 9 + 1)
- echo $rnd
-}
 
+    let rnd=($RANDOM % 9 + 1)
+    echo $rnd
+
+}
 
 ##################
 # gen files in dir
 ##################
-function genFiles
-{
+function genFiles {
 
-	local flsCnt=4+$(getRandomNumber)
+    local flsCnt=4+$(getRandomNumber)
 
-        for (( i=1; i<=$flsCnt; i++))
-                do
-                local flName=("fileName"$i)
-                echo -n > $1/$flName
-                done
+    for ((i = 1; i <= $flsCnt; i++)); do
+        local flName=("fileName"$i)
+        echo -n >$1/$flName
+    done
 }
 
 ################
 # gen dir
 ################
-function genDirs
-    {
-	if [[ ! -d $1/myDir$3-$2 ]]
-	then
+function genDirs {
+    if [[ ! -d $1/myDir$3-$2 ]]; then
         mkdir $1/myDir$3-$2
-	    #genFiles $1/myDir$3-$2 $3
-	fi
+        #genFiles $1/myDir$3-$2 $3
+    fi
 }
-
 
 ####################################################################################################################
 
@@ -53,8 +49,7 @@ ParentDir=$1
 # check if parent dir doesn`t exists
 # create it
 # else remove and create new one
-if  [ ! -d ${ParentDir} ]
-then
+if [ ! -d ${ParentDir} ]; then
     echo "create parent dir"
     mkdir -p ${ParentDir}
 else
@@ -70,53 +65,42 @@ fi
 #
 echo "gen tree"
 
-while [[ $CurDepth -le MaxDepth ]]
-	do
-        echo "CurDepth=$CurDepth"
+while [[ $CurDepth -le MaxDepth ]]; do
+    echo "CurDepth=$CurDepth"
 
-		find ${ParentDir}"/" -mindepth $(( $CurDepth - 1 )) -type d -print0 | while read -d $'\0' dir
-			do
+    find ${ParentDir}"/" -mindepth $(($CurDepth - 1)) -type d -print0 | while read -d $'\0' dir; do
 
-				dirCnt=$(getRandomNumber)
+        dirCnt=$(getRandomNumber)
 
-	        		for (( d=1; d<=$dirCnt; d++))
-        	        		do
-                				genDirs $dir $d $CurDepth
-                			done
+        for ((d = 1; d <= $dirCnt; d++)); do
+            genDirs $dir $d $CurDepth
+        done
 
-			done
+    done
 
-        	((CurDepth=$CurDepth+1))
+    ((CurDepth = $CurDepth + 1))
 
-	done
-
+done
 
 echo "gen files"
 
-find ${ParentDir}"/" -type d -print0 | while read -d $'\0' dir
-    do
-            genFiles $dir
-    done
-
-
+find ${ParentDir}"/" -type d -print0 | while read -d $'\0' dir; do
+    genFiles $dir
+done
 
 echo "fill files with odd/even"
 
-find ${ParentDir}"/" -type d -print0 | while read -d $'\0' dir 
-    do
-           
-           find $dir -maxdepth 1 -type f -print0 | while read -d $'\0' filename 
-            do
-                let filesInDirCnt+=1
-                
-                if [ $(($filesInDirCnt % 2)) -eq 0 ];
-                    then 
-                        echo "even - $filename" > $filename
-                    else
-                        echo "odd - $filename" > $filename
-                fi
+find ${ParentDir}"/" -type d -print0 | while read -d $'\0' dir; do
 
-            done
-            
+    find $dir -maxdepth 1 -type f -print0 | while read -d $'\0' filename; do
+        let filesInDirCnt+=1
+
+        if [ $(($filesInDirCnt % 2)) -eq 0 ]; then
+            echo "even - $filename" >$filename
+        else
+            echo "odd - $filename" >$filename
+        fi
 
     done
+
+done

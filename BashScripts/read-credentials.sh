@@ -1,14 +1,43 @@
 #!/bin/bash
-
+echo
+echo "                   read file with EoL=\r\n"
+echo "========================================================================="
+echo
 file="/mnt/d/TechMeSkills/github-files/tms22/Credentials/instr-by3"
 
 USERNAME=`head -1 "$file"`
 USERPWD=`tail -1 "$file"`
 
 echo ">>>>>>>>"$USERNAME"======" 
-echo "^^^^^^^"$USERPWD"======="
+echo "^^^^^^^^"$USERPWD"======="
+
+
+echo
+echo
+echo "                   read file with EoL=\n"
+echo "========================================================================="
+echo
+
+
+file="/mnt/d/TechMeSkills/github-files/tms22/Credentials/instr-by2"
+
+USERNAME=`head -1 "$file"`
+USERPWD=`tail -1 "$file"`
+
+echo ">>>>>>>>"$USERNAME"======" 
+echo "^^^^^^^^"$USERPWD"======="
+
+
+echo
+echo
+echo
+echo
 
 echo "========================================="
+echo "========================================="
+echo "========================================="
+
+
 
 file=$(cat "/mnt/d/TechMeSkills/github-files/tms22/Credentials/instr-by3")
 
@@ -20,8 +49,11 @@ done
 echo "========================================="
 
 
-USERNAME="ec49ce%40outlook.com"
-USERPWD="4ZK3x6KA474dgWR"
+file=$(cat "/mnt/d/TechMeSkills/github-files/tms22/Credentials/instr-by2")
 
-echo "=="$USERNAME"==" 
-echo "=="$USERPWD"=="
+for line in $file
+do
+    echo ">>>>>>>>>>>>>>>>>|"$line"|~~~~~~~~~~~"
+done
+
+echo "========================================="

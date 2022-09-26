@@ -2,12 +2,10 @@
 
 cd /tmp/
 
-#read Credentials for login data 
+#read Credentials for login data
 file="/mnt/d/TechMeSkills/github-files/tms22/Credentials/instr-by"
-USERNAME=`head -1 "$file"`
-USERPWD=`tail -1 "$file"`
-
-rm ccc.txt
+USERNAME=$(head -1 "$file")
+USERPWD=$(tail -1 "$file")
 
 echo
 echo "================ login on site github.com =================="
@@ -23,7 +21,7 @@ echo "============= get data after login =============="
 echo
 
 # use cookie file to make next curl
-curl --cookie ccc.txt 'https://github.com/pulls' > my-pulls.html
+curl --cookie ccc.txt 'https://github.com/pulls' >my-pulls.html
 
 echo
 echo "================== parse data ==================="
