@@ -1,0 +1,3 @@
+---
+# defaults file for debian-like
+http_port: 80
