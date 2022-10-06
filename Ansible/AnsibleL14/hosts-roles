@@ -1,0 +1,21 @@
+[srv_ubuntu]
+srvU ansible_host=192.168.60.40
+
+[srv_centos]
+srvC ansible_host=192.168.60.41
+
+[srv_debian]
+srvD ansible_host=192.168.60.42
+
+[all_debian:children]
+srv_ubuntu
+srv_debian
+
+[all_srv:children]
+srv_ubuntu
+srv_centos
+srv_debian
+
+[all_srv:vars]
+ansible_user=ansible
+ansible_ssh_private_key_file=/home/vagrant/.ssh/sshkey

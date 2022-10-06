@@ -1,0 +1,8 @@
+- name: Ansible PB to Install Apache
+  hosts: all_srv
+  become: yes
+  become_method: sudo
+
+  roles:
+   - {role: debian-like, when: ansible_os_family == "Debian" } 
+   - {role: RH-like, when: ansible_os_family == "RedHat" }

@@ -1,0 +1,33 @@
+---
+# tasks file for install-Apache
+- name: BLOCK install Apache on Debian like OS
+  block:
+      - name: install latest version of Apache on Debian like OS
+        apt: name=apache2 update_cache=yes state=latest  
+  
+      - name: "UFW allow HTTP on port {{ http_port }} on Debian like OS"
+        ufw:
+          rule: allow
+          port: "{{ http_port }}"
+          proto: tcp
+  when: ansible_os_family == "Debian"
+
+- name: BLOCK install Apache on RedHat like OS
+  block:
+      - name: install latest version of Apacheon on RedHat like OS
+        yum: name=httpd update_cache=yes state=latest
+
+      - name: "firewalld allow HTTP on port {{ http_port }} on RedHat like OS"
+        firewalld:
+          port: "{{ http_port }}/tcp"
+          permanent: yes
+          state: enabled
+  when: ansible_os_family == "RedHat"
+
+- name: copy index file
+  template:
+    src: "files/index-template.j2"
+    dest: "/var/www/html/index.html"
+  notify: 
+   - restart-apache-on-debian
+   - restart-apache-on-RH

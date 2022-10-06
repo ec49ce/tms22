@@ -1,0 +1,16 @@
+---
+# tasks file for debian-like
+- name: install latest version of Apache on debian like OS
+  apt: name=apache2 update_cache=yes state=latest  
+
+- name: "UFW firewall allow HTTP on port {{ http_port }} on debian like OS"
+  ufw:
+    rule: allow
+    port: "{{ http_port }}"
+    proto: tcp
+
+- name: copy index file
+  template:
+    src: "index-template.j2"
+    dest: "/var/www/html/index.html"
+  notify: restart-apache

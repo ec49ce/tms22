@@ -1,0 +1,74 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "srv1" do |srv1|
+    srv1.vm.box = "bento-ub2204-bb" # локальный basebox ubuntu2204
+    
+    srv1.vm.box_check_update = false
+
+    srv1.vm.provider "virtualbox" do |vb|
+          vb.name = "srv1_Ubuntu2204"
+          vb.memory = "2048"
+          vb.cpus = 3
+        end
+        
+    srv1.vm.network "private_network", ip: "192.168.60.40" 
+    srv1.vm.hostname = "srvUbuntu"
+
+  end
+
+
+  config.vm.define "srv2" do |srv2|
+
+    srv2.vm.box = "bento-CentOS8-bb" # локальный basebox CentOS8
+    
+    srv2.vm.box_check_update = false
+
+    srv2.vm.provider "virtualbox" do |vb|
+          vb.name = "srv2_CentOS80"
+          vb.memory = "2048"
+          vb.cpus = 3
+        end
+  
+    srv2.vm.network "private_network", ip: "192.168.60.41"
+    srv2.vm.hostname = "srvCentOs"
+  end
+
+
+  config.vm.define "srv3" do |srv3|
+
+    srv3.vm.box = "bento-debian11-bb" # локальный basebox Debian11
+    
+    srv3.vm.box_check_update = false
+
+    srv3.vm.provider "virtualbox" do |vb|
+          vb.name = "srv2_debian11"
+          vb.memory = "2048"
+          vb.cpus = 3
+        end
+  
+    srv3.vm.network "private_network", ip: "192.168.60.42"
+    srv3.vm.hostname = "srvDebian"
+  end
+
+
+  config.vm.define "srv4" do |srv4|
+    srv4.vm.box = "bento-ub2204-bb" # локальный basebox ubuntu2204
+    
+    srv4.vm.box_check_update = false
+
+    srv4.vm.provider "virtualbox" do |vb|
+          vb.name = "srv4_Ubuntu2204_mng"
+          vb.memory = "2048"
+          vb.cpus = 3
+        end
+        
+    srv4.vm.network "private_network", ip: "192.168.60.60"
+    
+    srv4.vm.synced_folder "srv4_mng_sync", "/vmSyncFldr" 
+    srv4.vm.hostname = "srv-mng"
+  end
+
+end

@@ -1,0 +1,7 @@
+- name: Ansible PB to Install Apache
+  hosts: all_srv
+  become: yes
+  become_method: sudo
+
+  roles:
+   - install-Apache
