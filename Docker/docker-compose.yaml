@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+    nginx-on-centos:
+      image: my-centos-nginx:1.0
+      container_name: mycentosnginx
+      ports:
+          - 8081:80
+      volumes:
+          - /home/vagrant/shared-folder-volume:/usr/share/nginx/html
+
+    apache-on-debian:
+      image: my-deb-apache2:1.0
+      container_name: mydebapache2
+      ports:
+          - 8082:80
+      volumes:
+          - /home/vagrant/shared-folder-volume:/var/www/html
