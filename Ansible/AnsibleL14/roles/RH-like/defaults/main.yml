@@ -1,0 +1,3 @@
+---
+# defaults file for RH-like
+http_port: 80

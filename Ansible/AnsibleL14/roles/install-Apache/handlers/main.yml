@@ -1,0 +1,13 @@
+---
+# handlers file for install-Apache
+- name: restart-apache-on-debian
+  service:
+    name: apache2
+    state: restarted
+  when: ansible_os_family == "Debian"
+
+- name: restart-apache-on-RH
+  service:
+    name: httpd
+    state: restarted
+  when: ansible_os_family == "RedHat"
