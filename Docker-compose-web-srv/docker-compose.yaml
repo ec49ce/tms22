@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+    nginx-on-centos:
+        build: centos-nginx/
+        ports:
+            - 8091:80
+        volumes:
+            - /home/vagrant/shared-folder:/usr/share/nginx/test-domain/
+            - /home/vagrant/log/nginx:/var/log/nginx/
+
+    apache-on-debian:
+        build: debian-apache2/
+        ports:
+            - 8092:80
+        volumes:
+            - /home/vagrant/shared-folder:/var/www/test-domain
+            - /home/vagrant/log/apache2:/var/log/apache2
