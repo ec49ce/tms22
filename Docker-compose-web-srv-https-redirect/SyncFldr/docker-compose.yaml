@@ -3,6 +3,7 @@ version: "3.9"
 services:
     nginx-on-centos:
         build: centos-nginx/
+        image: nginxtt:tst
         container_name: nginx-tst
         ports:
             - "8091:80"
@@ -13,6 +14,7 @@ services:
 
     apache-on-debian:
         build: debian-apache2/
+        image: apache2tt:tst
         container_name: apache2-tst
         ports:
             - "8092:80"
