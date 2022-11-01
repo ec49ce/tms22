@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+    nginx-on-centos:
+        build: centos-nginx/
+        image: centos-nginx:tst
+        container_name: nginxtst
+
+        volumes:
+                - /home/vagrant/nginx/test-domain/:/usr/share/nginx/test-domain/
+                - /home/vagrant/log/nginx:/var/log/nginx/
+        networks:
+                - my_net
+        extra_hosts:
+                - "test-domain:192.168.50.41"
+
+    apache-on-debian:
+        build: debian-apache2/
+        image: debian-apache2:tst
+        container_name: apache2tst
+
+        volumes:
+                - /SyncFldr/debian-apache2/webpage/:/var/www/test-domain
+                - /home/vagrant/log/apache2:/var/log/apache2
+        networks:
+                 - my_net
+        extra_hosts:
+                - "test-domain:192.168.50.41"
+
+    apache-adm:
+        build: debian-apache2/
+        image: debian-apache2:tst
+        container_name: apache2admtst
+
+        volumes:
+                - /SyncFldr/apache2-adm/webpage/:/var/www/test-domain
+                - /SyncFldr/apache2-adm/webpage/:/var/www/test-domain/adm
+                - /home/vagrant/log/apache2adm:/var/log/apache2
+        networks:
+                 - my_net
+        extra_hosts:
+                - "test-domain:192.168.50.41"
+
+    haproxy-blnc:
+        build: haproxy/
+        image: haproxy:tst
+        container_name: haproxytst
+        ports:
+              - "8094:80"
+        networks:
+                 - my_net
+        links:
+              - nginx-on-centos
+              - apache-on-debian
+              - apache-adm
+        extra_hosts:
+               - "test-domain:192.168.50.41"
+
+
+networks:
+         my_net:
