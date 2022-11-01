@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+    nginx-on-centos:
+      build: centos-nginx/
+      ports:
+          - 8081:80
+      volumes:
+          - /home/vagrant/shared-folder-volume:/usr/share/nginx/html
+
+    apache-on-debian: 
+       build: debian-apache2/   
+       ports:
+          - 8082:80
+       volumes:
+          - /home/vagrant/shared-folder-volume:/var/www/html
