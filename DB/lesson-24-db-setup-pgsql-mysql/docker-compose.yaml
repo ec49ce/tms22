@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+    pgsql-on-centos:
+        build: centos-pgsql/
+        image: pgsql-centos:tst
+        container_name: pgsqlt
+        environment:
+                PGDATA: "/var/lib/postgresql/data/pgdata"
+        ports:
+              - "5432:5432"
+        networks:
+                - DB_net
+        volumes:
+                - /home/vagrant/postgresql-data:/var/lib/postgresql/data
+
+
+    mysql-on-ubuntu:
+        build: ubuntu-mysql/
+        image: mysql:tst
+        container_name: mysqlt
+        ports:
+                - "3306:3306"   
+        networks:
+                - DB_net
+
+networks:
+         DB_net:
+
+volumes:
+  pgadmin-data:
