@@ -19,4 +19,6 @@ RUN chown root:root /DB-Start-Up.sh;\
     
 ENV PGDATA="/var/lib/postgresql/data/pgdata"
 
+USER postgres
+
 CMD ["/bin/bash","-c","/DB-Start-Up.sh && tail -f /dev/null"]
